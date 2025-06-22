@@ -1,0 +1,9 @@
+{
+	"name": "azure-data-for-cicd-test",
+	"location": "eastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7d023f47-76b9-412a-8efd-aac337d014ce",
+		"tenantId": "7d2dd0b3-5b8c-4136-a68b-29125f954979"
+	}
+}
