@@ -4,6 +4,9 @@
 	"parameters": {
 		"factoryName": {
 			"value": "azure-data-for-cicd-test"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
 		}
 	}
 }
