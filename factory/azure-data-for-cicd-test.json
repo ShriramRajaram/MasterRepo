@@ -1,5 +1,13 @@
 {
 	"name": "azure-data-for-cicd-test",
+	"properties": {
+		"globalParameters": {
+			"filename": {
+				"type": "string",
+				"value": "TestFIlename"
+			}
+		}
+	},
 	"location": "eastasia",
 	"identity": {
 		"type": "SystemAssigned",
