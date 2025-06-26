@@ -12,13 +12,24 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Copyfiltereddata",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "select1"
 				},
 				{
-					"name": "split1"
+					"name": "splitstatusReady"
+				},
+				{
+					"name": "derivedStatus"
 				}
 			],
 			"scriptLines": [
@@ -135,21 +146,21 @@
 				"          {Charge complete? (latched) []},",
 				"          {Remaining Battery Pack Capacity [As]},",
 				"          {Battery Pack Capacity [Ah]},",
-				"          {State of Health [%]},",
-				"          { Alarm Entry 1},",
-				"          { Alarm Entry 2},",
-				"          { Alarm Entry 3},",
-				"          { Alarm Entry 4},",
-				"          { Alarm Entry 5},",
-				"          { Alarm Entry 6},",
-				"          { Alarm Entry 7},",
-				"          { Alarm Entry 8}",
+				"          {State of Health [%]}",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 split(equals({ Status}, 'READY'),",
-				"     ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(, )"
+				"select1 split( { Status} == 'READY' ,",
+				"     { Status} == 'ACTIVE',",
+				"     disjoint: false) ~> splitstatusReady@(ReadyStatus, ActiveStatus)",
+				"splitstatusReady@ReadyStatus derive({ Status_with_Soc} = { Status} + 'State' +{ SoC [%]}) ~> derivedStatus",
+				"derivedStatus sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
