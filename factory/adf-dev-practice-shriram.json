@@ -1,0 +1,9 @@
+{
+	"name": "adf-dev-practice-shriram",
+	"location": "eastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "97a30dcb-275b-4631-afca-16648add25b6",
+		"tenantId": "7d2dd0b3-5b8c-4136-a68b-29125f954979"
+	}
+}
